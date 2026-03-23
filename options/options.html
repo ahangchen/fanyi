@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LLM 翻译器 - 设置</title>
+  <style>
+    * {
+      margin:0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    
+    h2 {
+      color: #4CAF50;
+      margin: 20px 0 10px 0;
+      font-size: 18px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+    
+    .help-text {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #999;
+    }
+    
+    .button-group {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+    }
+    
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .btn-primary {
+      background: #4CAF50;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #45a049;
+    }
+    
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #333;
+    }
+    
+    .btn-secondary:hover {
+      background: #d0d0d0;
+    }
+    
+    .status {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+    
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+    
+    .section {
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+    }
+    
+    .icon {
+      font-size: 20px;
+      margin-right: 8px;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ LLM 翻译器设置</h1>
+    
+    <form id="settingsForm">
+      <div class="section">
+        <h2><span class="icon">🔧</span> API 配置</h2>
+        
+        <div class="form-group">
+          <label for="apiProvider">API 提供商</label>
+          <select id="apiProvider">
+            <option value="openai">OpenAI (GPT)</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="custom">自定义 API</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="apiEndpoint">API 端点</label>
+          <input type="url" id="apiEndpoint" placeholder="https://api.openai.com/v1/chat/completions">
+          <div class="help-text">默认：https://api.openai.com/v1/chat/completions</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="apiKey">API Key</label>
+          <input type="password" id="apiKey" placeholder="sk-...">
+          <div class="help-text">您的 API 密钥将安全地存储在本地</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="model">模型</label>
+          <select id="model">
+            <option value="gpt-4">GPT-4</option>
+            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2><span class="icon">🌐</span> 翻译设置</h2>
+        
+        <div class="grid">
+          <div class="form-group">
+            <label for="targetLanguage">目标语言</label>
+            <select id="targetLanguage">
+              <option value="中文">中文</option>
+              <option value="English">English</option>
+              <option value="日本語">日本語</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="maxBatchSize">批量翻译大小</label>
+            <input type="number" id="maxBatchSize" value="2000" min="500" max="4000">
+            <div class="help-text">单次请求处理的最大字符数</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="button-group">
+        <button type="submit" class="btn-primary">💾 保存设置</button>
+        <button type="button" class="btn-secondary" id="testConnection">🔗 测试连接</button>
+      </div>
+      
+      <div id="status" class="status"></div>
+    </form>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
